@@ -681,8 +681,10 @@ func (h *handler) txBroadcastLoop() {
 	defer h.wg.Done()
 	for {
 		select {
-		case event := <-h.txsCh:
-			h.BroadcastTransactions(event.Txs)
+		// case event := <-h.txsCh:
+		case <-h.txsCh:
+			// h.BroadcastTransactions(event.Txs)
+			continue
 		case <-h.txsSub.Err():
 			return
 		}
